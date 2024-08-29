@@ -22,7 +22,7 @@
     <record model="ir.actions.act_window" id="act_config_academia">
         <field name="name">Materias</field>
         <field name="res_model">academia.calificacion</field>
-        <field name="view_mode">tree, form</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.ui.view" id="academy_student_form">
@@ -41,25 +41,25 @@
                     <group colspan="4">
                         <field name="name"/>
                         <field name="lastname"/>
-                        <field name="curp" placeholder="GOCD960021MVZNLN500"/>
+                       <!-- <field name="curp" placeholder="GOCD960021MVZNLN500"/> -->
                         <field name="create_date"/>
                         <field name="active"/>
                         <field name="age"/>
                         <field name="partner_id"/>
-                        <field name="country" />
+                        <!--<field name="country" /> -->
                     </group>
                     <group>
                         <notebook>
                             <page string="Calificaciones">
-                                <field name="name" required="True">
-                                    <tree string="Calificaciones" editable="botton">
-                                        <field name="name" required="True"/>
-                                        <field name="calificacion" required="True"/>
+                                <field name="calificaciones_id">
+                                    <tree string="Calificaciones" editable="bottom">
+                                        <field name="name" required="True"></field>
+                                        <field name="calificacion" required="True"></field>
                                     </tree>
                                 </field>
-                                <group class="oe_subtotal_footer eo_right" colspan="2" name="grupo_promedio">
+                                <!--<group class="oe_subtotal_footer eo_right" colspan="2" name="grupo_promedio">
                                     <field name="promedio"/>
-                                </group>
+                                </group>-->
                             </page>
                             <page>
                                 <field name="note"/>

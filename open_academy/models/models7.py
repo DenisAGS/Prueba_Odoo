@@ -17,4 +17,6 @@ class academia_materia(models.Model):
     _name="academia.materia"
     _description="Materia"
     
-    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre de la materia debe ser unico')]
+    name=fields.Char("Nombre")
+    
+    _sql_constraints = [('name_uniq', 'unique(name)', 'El nombre de la materia debe ser único')]
