@@ -41,12 +41,12 @@
                     <group colspan="4">
                         <field name="name"/>
                         <field name="lastname"/>
-                       <!-- <field name="curp" placeholder="GOCD960021MVZNLN500"/> -->
+                        <field name="curp" placeholder="GOCD960021MVZNLN500"/>
                         <field name="create_date"/>
                         <field name="active"/>
                         <field name="age"/>
                         <field name="partner_id"/>
-                        <!--<field name="country" /> -->
+                        <field name="country" />
                     </group>
                     <group>
                         <notebook>
