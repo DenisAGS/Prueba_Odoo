@@ -52,6 +52,6 @@ class academia_student(models.Model):
             return res
     
     @api.constrains('curp')
-    def _check_curp(self):
+    def _check_curp(self): 
         if len(self.curp) < 18:
             raise exceptions.ValidationError('La curp debe ser de 18 digitos')
