@@ -61,7 +61,10 @@
                                     <field name="promedio"/>
                                 </group>-->
                             </page>
-                            <page>
+                            <page string="Facturas">
+                                <field name="invoice_ids"/>
+                            </page>
+                            <page string="Comentarios">
                                 <field name="note"/>
                             </page>
                         </notebook>

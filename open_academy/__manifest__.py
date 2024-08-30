@@ -6,6 +6,7 @@
     "depends": [
         "base",
         "sale_management",
+        "account"
     ],
     "data": [
         "security/ir.model.access.csv",

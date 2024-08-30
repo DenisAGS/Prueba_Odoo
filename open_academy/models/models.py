@@ -12,6 +12,11 @@ class academia_student(models.Model):
     _description ="Gestion de estudiante"
     _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     
+    #Funciones
+    def _get_school_default(self):
+        school_id = self.env['res.partner'].search([('name', '=', 'Escuela comodin')])
+        return school_id 
+    
     name = fields.Char("Nombre", size=128, required=True, track_visibility='onchange')
     lastname = fields.Char("Apellido", size=128)
     photo = fields.Binary('Fotografia')
@@ -25,12 +30,16 @@ class academia_student(models.Model):
     ], "Estado", default="draft")
     active = fields.Boolean("Activo", default=True)
     age = fields.Integer('Edad')
-    curp = fields.Char("CURP", size=18, required=True)
+    curp = fields.Char("CURP", size=18, copy=False)
     
     #Relaciones
-    partner_id = fields.Many2one('res.partner', 'Escuela')
+    partner_id = fields.Many2one('res.partner', 'Escuela', default=_get_school_default)
     calificaciones_id = fields.One2many('academia.calificacion', 'student_id', 'Calificaciones')
     country = fields.Many2one('res.country', 'Pais', related="partner_id.country_id")
+    invoice_ids = fields.Many2many('account.move',
+                                   'student_invoice_rel',
+                                   'student_id', 'journal_id',
+                                    'Facturas')
     
     @api.model
     def create(self, values):
