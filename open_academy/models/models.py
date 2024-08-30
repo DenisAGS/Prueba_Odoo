@@ -10,8 +10,9 @@ class ResPartner(models.Model):
 class academia_student(models.Model):
     _name="academia.student"
     _description ="Gestion de estudiante"
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     
-    name = fields.Char("Nombre", size=128, required=True)
+    name = fields.Char("Nombre", size=128, required=True, track_visibility='onchange')
     lastname = fields.Char("Apellido", size=128)
     photo = fields.Binary('Fotografia')
     create_date = fields.Datetime('Fecha de creación', readonly=True)
@@ -50,6 +51,17 @@ class academia_student(models.Model):
             partner = partner_obj.create(vals_to_partner)
             print('==> partner_id ', partner)
             return res
+        
+    def unlink(self):
+        partner_obj = self.env['res.partner']
+        partners = partner_obj.search([('student_id', 'in', self.ids)])
+        print('partners: ', partners)
+        if partners:
+            for partner in partners:
+                partner.unlink()
+        res = super(academia_student, self).unlink()
+        return res
+        
     
     @api.constrains('curp')
     def _check_curp(self): 
