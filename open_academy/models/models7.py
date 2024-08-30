@@ -10,8 +10,9 @@ class academia_calificacion(models.Model):
     
     @api.constrains('calificacion')
     def _check_calificacion(self):
-        if self.calificacion < 5 or self.calificacion > 10:
-            raise exceptions.ValidationError('La calificacion debe ser mayor a 5 y menor a 10')
+        for record in self:
+            if record.calificacion < 5 or record.calificacion > 10:
+                raise exceptions.ValidationError('La calificacion debe ser mayor a 5 y menor a 10')
     
 class academia_materia(models.Model):
     _name="academia.materia"

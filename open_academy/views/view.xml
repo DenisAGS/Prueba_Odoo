@@ -19,10 +19,53 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="act_config_academia">
+    <record model="ir.actions.act_window" id="act_config_materia">
         <field name="name">Materias</field>
-        <field name="res_model">academia.calificacion</field>
+        <field name="res_model">academia.materia</field>
         <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_config_grado">
+        <field name="name">Grados</field>
+        <field name="res_model">academia.grado</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="academia_grado">
+        <field name="name">academia.grado.form</field>
+        <field name="model">academia.grado</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Grado">
+                <header></header>
+                <sheet>
+                    <group colspan="4">
+                        <field name="name"/>
+                        <field name="group"/>
+                    </group>
+                    <notebook>
+                        <page>
+                            <field name="materia_ids">
+                                <tree string="Materias" editable="bottom">
+                                    <field name="materia_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="tree_grado_id">
+        <field name="name">academia.grado.tree</field>
+        <field name="model">academia.grado</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Grados">
+                <field name="complete_name"/>
+            </tree>
+        </field>
     </record>
 
     <record model="ir.ui.view" id="academy_student_form">
@@ -47,6 +90,7 @@
                         <field name="age"/>
                         <field name="partner_id"/>
                         <field name="country" />
+                        <field name="grado_id"/>
                     </group>
                     <group>
                         <notebook>
@@ -57,9 +101,9 @@
                                         <field name="calificacion" required="True"></field>
                                     </tree>
                                 </field>
-                                <!--<group class="oe_subtotal_footer eo_right" colspan="2" name="grupo_promedio">
+                                <group class="oe_subtotal_footer eo_right" colspan="2" name="grupo_promedio">
                                     <field name="promedio"/>
-                                </group>-->
+                                </group>
                             </page>
                             <page string="Facturas">
                                 <field name="invoice_ids"/>
@@ -85,6 +129,7 @@
         <menuitem id="id_menu_student_act" parent="id_menu_student" name="Estudiantes" action="act_student_academia" sequence="0"/>
 
         <menuitem id="id_menu_config" parent="id_principal_academia" name="Configuracion" sequence="1"/>
-        <menuitem id="id_menu_config_act" parent="id_menu_config" name="Materias" action="act_config_academia" sequence="0"/>
+        <menuitem id="id_menu_config_act" parent="id_menu_config" name="Materias" action="act_config_materia" sequence="0"/>
+        <menuitem id="id_menu_grado_act" parent="id_menu_config" name="Grados" action="act_config_grado" sequence="0"/>
     </data>
 </odoo>
