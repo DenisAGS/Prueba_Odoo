@@ -1,5 +1,14 @@
 from odoo import _, api, fields, models, exceptions
 
+class make_student_invoice(models.TransientModel):
+    _name = 'make.student.invoice'
+    _description = 'Asistente para la generación de facturas'
+    
+    journal_id = fields.Many2one('account.journal', 'Diario', domain="[('type','=','sale')]")
+    
+    def make_invoices(self):
+        print("aqui se generará una factura")
+        return True
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -71,8 +80,8 @@ class academia_student(models.Model):
     note = fields.Html('Comentarios')
     state = fields.Selection([
         ('draft', "Borrador"),
-        ('done', "Egresado"),
         ('process', "En proceso"),
+        ('done', "Egresado"),
         ('cancel', "Expulsado")
     ], "Estado", default="draft")
     active = fields.Boolean("Activo", default=True)
@@ -137,3 +146,32 @@ class academia_student(models.Model):
     def _check_curp(self): 
         if len(self.curp) < 18:
             raise exceptions.ValidationError('La curp debe ser de 18 digitos')
+        
+    def confirm(self):
+        self.state= 'process'
+        return True
+    
+    def cancel(self):
+        self.state= 'cancel'
+        return True
+    
+    def done(self):
+        self.state= 'done'
+        return True
+    
+    def draft(self):
+        self.state= 'draft'
+        return True
+    
+    def generarFactura(self):
+        return {
+            'name': 'Generación de facturas',
+            'res_model': 'make.student.invoice',
+            'type': 'ir.actions.act_window',
+            'view_id': self.env.ref('open_academy.wizard_student_invoice').id,
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'key2': "client_action_multi",
+            'context': {'active_ids': self.id}
+        }
