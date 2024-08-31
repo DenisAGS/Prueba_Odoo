@@ -28,7 +28,32 @@
     <record model="ir.actions.act_window" id="act_student_academia">
         <field name="name">Registro de estudiante</field>
         <field name="res_model">academia.student</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form, pivot, graph</field>
+    </record>
+
+    <record model="ir.ui.view" id="pivot_student_tree">
+        <field name="name">academia.student.pivot</field>
+        <field name="model">academia.student</field>
+        <field name="type">pivot</field>
+        <field namme="arch" type="xml">
+            <pivot string="Facturación por escuela">
+                <field name="create_date" type="row" />
+                <field name="partner_id" type="row" />
+                <field name="amount_invoice" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="graph_student_tree">
+        <field name="name">academia.student.graph</field>
+        <field name="model">academia.student</field>
+        <field name="type">graph</field>
+        <field namme="arch" type="xml">
+            <pivot string="Facturación por escuela">
+                <field name="partner_id" type="row" />
+                <field name="amount_invoice" type="measure" />
+            </pivot>
+        </field>
     </record>
 
     <record model="ir.ui.view" id="tree_student_id">
